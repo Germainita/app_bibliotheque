@@ -1,0 +1,27 @@
+.sidebar{
+    position: -webkit-sticky;
+    position: sticky;
+    /* top: 5rem; */
+    /* display: block !important; */
+    height: calc(100vh - 3.5rem);
+    overflow-y: auto;
+   
+}
+.sidebar ul {
+   line-height: 8vh;
+   padding-left: 0;
+   /* height: 75vh; */
+}
+
+ul li{
+    list-style: none;
+}
+
+ul li a{
+    text-decoration: none;
+}
+
+.active{
+    color: var(--bg_base) !important;
+    font-weight: bold;
+}

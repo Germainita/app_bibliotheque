@@ -1,1 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+    /* --bg_base: #A7E0E0; */
+    --bg_base: #4AA3A2;
+}
+
+.btn, a.btn:hover{
+    background-color: var(--bg_base) !important;
+    color: white !important;
+}
+
+.btnAction{
+    background-color: white !important;
+    color: var(--bg_base) !important;
+    border: 1px solid var(--bg_base) !important;
+}
+
+a{
+    color: black !important;
+}
+a:hover{
+    color: var(--bg_base) !important;
+}
+
+/* Pour les titres  */
+.title{
+    border-right: 2px solid rgb(116, 113, 113) !important;
+}
+
+/* Pour les tables  */
+.containerTable{
+    width: 100%;
+    max-height: 70vh !important;
+    overflow-y: scroll;
+}
+
+.containerTable thead{
+    z-index: 1;
+}

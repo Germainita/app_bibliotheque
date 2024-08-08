@@ -1,0 +1,10 @@
+.imageBib img{
+    width: 100%;
+    max-height: 90vh;
+}
+
+.btnConnexion{
+    background-color: white !important;
+    color: var(--bg_base) !important;
+    border: 1px solid var(--bg_base);
+}

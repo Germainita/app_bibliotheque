@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+    <div class="container-fluid container">
+        <a class="navbar-brand" href="#">BlioApp</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            @if (userConnected && userConnected.role==='membre') {
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink="/accuelMembre" routerLinkActive="active">Livre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="">Mes emprunts</a>
+                    </li>
+                </ul>
+            }@else {
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+            }
+            <form class="d-flex z-3" role="search">
+                @if (userConnected.role) {
+                    <!-- <button class="btn btnConnexion rounded-circle py-3 px-2" type="submit">Profil</button> -->
+                    <ul class="navbar-nav  me-5 mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle p-0 py-0 d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" height="40px" alt="">
+                            </a>
+                            <ul class="dropdown-menu border-0 shadow">
+                              <li class="mb-2"><a class="dropdown-item py-2 " ><i class="bi bi-person-lines-fill"></i> Profil</a></li>
+                              <li class="border-top" (click)="logout()"><a class="dropdown-item pt-3 "><i class="bi bi-box-arrow-left"></i> Deconnexion</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                } @else {
+                    <a routerLink="/connexion" class="btn btnConnexion">Connexion</a>
+                }
+            </form>
+        </div>
+    </div>
+</nav>

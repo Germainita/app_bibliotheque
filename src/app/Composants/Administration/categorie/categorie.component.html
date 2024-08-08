@@ -1,0 +1,112 @@
+<header>
+    <app-navbar></app-navbar>
+</header>
+
+<main class="d-flex">
+    <div class="col-2"><app-sidebar></app-sidebar></div>
+    <div class="col-10 px-5 py-3">
+        <div class="d-flex justify-content-between">
+            <!-- Liste et recherche -->
+            <div class="d-flex align-items-center">
+                <h5 class="mb-3 fw-bold py-1 pe-2 title">Liste des categories</h5>
+                <div class="mb-3 ms-2">
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Rechercher...">
+                </div>
+            </div>
+
+            <div>
+                <button class="btn px-3" data-bs-toggle="modal" data-bs-target="#ajoutCategorie">Nouvelle categorie</button>
+            </div>
+
+        </div>
+        <div class="containerTable">
+            <table class="table table-responsive ">
+                <thead class="table-light sticky-top">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Categorie</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for (categorie of tabCategorie; track $index) {
+                    <tr>
+                        <td>{{$index + 1}}</td>
+                        <td>{{categorie.nom}}</td>
+                        <td width="70%">{{categorie.description}}</td>
+                        <td>
+                            <!-- Modifier  -->
+                            <button class="btn me-2 mt-1 btnAction" data-bs-toggle="modal" data-bs-target="#modifierCategorie" (click)="getCategorieObjet(categorie)"><i class="bi bi-pencil-square"></i></button>
+                            <!-- Supprimer  -->
+                            <!-- <button class="btn  mt-1  btnAction"><i class="bi bi-archive"></i></button> -->
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<!-- Modal Ajout livre -->
+<div class="modal fade" id="ajoutCategorie" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Nouvelle Categorie</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"> 
+            <form action="" enctype="multipart/form-data">
+                <!-- Numero isbn  -->
+                <div class="mb-3">
+                    <label for="isbn" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="isbn" name="isbn" [(ngModel)]="categorieObject.nom">
+                </div>
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="desc" class="form-label">Description</label>
+                    <textarea class="form-control" id="desc" rows="3" name="desc" [(ngModel)]="categorieObject.description"></textarea>
+                </div>
+                  
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-primary" (click)="addCategorie()">Ajouter</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal Modifier categorie -->
+<div class="modal fade" id="modifierCategorie" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier la categorie</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"> 
+            <form action="" enctype="multipart/form-data">
+                <!-- Numero isbn  -->
+                <div class="mb-3">
+                    <label for="isbn" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="isbn" name="isbn" [(ngModel)]="categorieObject.nom">
+                </div>
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="desc" class="form-label">Description</label>
+                    <textarea class="form-control" id="desc" rows="3" name="desc" [(ngModel)]="categorieObject.description"></textarea>
+                </div>
+                  
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-primary" (click)="updateCategorie()">Modifier</button>
+        </div>
+      </div>
+    </div>
+</div>

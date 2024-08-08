@@ -1,0 +1,56 @@
+<header>
+    <app-navbar></app-navbar>
+</header>
+
+<main class="d-flex">
+    <div class="col-2"><app-sidebar></app-sidebar></div>
+    <div class="col-10 px-5 py-3">
+        <div class="d-flex justify-content-between">
+            <!-- Liste et recherche -->
+            <div class="d-flex align-items-center">
+                <h5 class="mb-3 fw-bold py-1 pe-2 title">Liste des membres</h5>
+                <div class="mb-3 ms-2">
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Rechercher...">
+                </div>
+            </div>
+
+            <div>
+                <button class="btn px-3">Nouveau membre</button>
+            </div>
+
+        </div>
+        @if (tabMembres.length) {
+            <div class="containerTable">
+                <table class="table table-responsive ">
+                    <thead class="table-light sticky-top">
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prenom</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for (user of tabMembres; track $index) {
+                        <tr>
+                            <td >{{user.nom}}</td>
+                            <td >{{user.prenom}}</td>
+                            <td>{{user.email}}</td>
+                            <td >{{user.role}}</td>
+                            <td>
+                                <!-- Modifier   -->
+                                <button class="btn me-2 mt-1 btnAction"><i class="bi bi-pencil-square"></i></button>
+                                <!-- Supprimer   -->
+                                <button class="btn  mt-1  btnAction"><i class="bi bi-archive"></i></button>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        }@else {
+            <p>Pas d'utilisateur</p>
+        }
+    </div>
+</main>

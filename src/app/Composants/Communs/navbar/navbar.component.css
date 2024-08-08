@@ -1,0 +1,12 @@
+.navbar{
+    height: 3.5rem;
+}
+.btnConnexion{
+    background-color: white !important;
+    color: var(--bg_base) !important;
+    border: 1px solid var(--bg_base);
+}
+.active{
+    color: var(--bg_base) !important;
+    font-weight: bold;
+}

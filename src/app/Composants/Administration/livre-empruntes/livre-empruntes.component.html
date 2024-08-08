@@ -1,0 +1,146 @@
+<header>
+    <app-navbar></app-navbar>
+</header>
+
+<main class="d-flex">
+    <div class="col-2"><app-sidebar></app-sidebar></div>
+    <div class="col-10 px-5 py-3">
+        <div class="d-flex justify-content-between">
+            <!-- Liste et recherche -->
+            <div class="d-flex align-items-center">
+                <h5 class="mb-3 fw-bold py-1 pe-2 title">Liste des emprunts</h5>
+                <div class="mb-3 ms-2">
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Rechercher...">
+                </div>
+            </div>
+
+        </div>
+        <div class="containerTable">
+            <table class="table table-responsive ">
+                <thead class="table-light sticky-top">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" >Livre</th>
+                        <th scope="col">Emprunté par</th>
+                        <th scope="col">Emprunté le</th>
+                        <th scope="col">A retourné le </th>
+                        <th scope="col">Date de retour</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for (emprunt of tabEmprunts; track $index) {
+                    <tr>
+                        <td >{{$index +1}}</td>
+                        <td >{{emprunt.livre.titre}}</td>
+                        <td >{{emprunt.user.prenom}} {{emprunt.user.nom}}</td>
+                        <td>{{emprunt.date_emprunt}}</td>
+                        <td >{{emprunt.date_retour_prevue}}</td>
+                        @if (emprunt.date_retour_reelle) {
+                            <td >{{emprunt.date_retour_reelle}}</td>
+                        }@else {
+                            <td>Pas encore </td>
+                        }
+                        <td>
+                            <!-- Details   -->
+                            <button class="btn me-2 mt-1  btnAction" data-bs-toggle="modal" data-bs-target="#details" (click)="getEmpruntObject(emprunt)"><i class="bi bi-eye"></i></button>
+                            <!-- Modifier  -->
+                            <button class="btn mt-1 btnAction" data-bs-toggle="modal" data-bs-target="#modifierEmprunt" (click)="getEmpruntObject(emprunt)"><i class="bi bi-pencil-square"></i></button>
+                            <!-- <button class="btn  mt-1  btnAction"><i class="bi bi-eye"></i></button> -->
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<!-- Modal details emprunt -->
+<div class="modal fade" id="details" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Details de l'emprunt</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"> 
+            @if (empruntObject) {
+                <div class="mb-3  rounded-4 px-3">
+                    <p class="fw-bold fs-6 border-bottom d-inline-block">Informations de l'emprunteur</p>
+                    <div class="d-flex justify-content-between flex-wrap ">
+                        <p><span class="fw-bold">Nom complet: </span>{{empruntObject.user.prenom}} {{empruntObject.user.nom}}</p>
+                        <p><span class="fw-bold">Email: </span>{{empruntObject.user.email}}</p>
+                        <p><span class="fw-bold">Role: </span>{{empruntObject.user.role}}</p>                        
+                    </div>
+                </div>
+                <div class="mb-3  rounded-4 px-3">
+                    <p class="fw-bold fs-6 border-bottom d-inline-block">Informations sur l'emprunt</p>
+                    <div class="d-flex justify-content-between flex-wrap">
+                        <div class="col-md-4 mb-3">
+                            @if (empruntObject.livre.image) {
+                                <img [src]="imageLivre" alt="">
+                            }@else {
+                                <p class="text-danger">Aucune image pour ce livre</p>
+                            }
+                        </div>
+                        <!-- <img src="" alt=""> -->
+                        <div class="col-md-5 mb-3">
+                            <h6 class="fw-bold infos">Infos sur le livre</h6>
+                            <p><span class="fw-bold">ISBN: </span> {{empruntObject.livre.isbn}}</p>
+                            <p><span class="fw-bold">Titre: </span> {{empruntObject.livre.titre}}</p>
+                            <p><span class="fw-bold">Auteur: </span> {{empruntObject.livre.auteur}}</p>
+                            <p><span class="fw-bold">Date de publication: </span> {{empruntObject.livre.date_publication}}</p>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <h6 class="fw-bold infos">Infos sur l'emprunt</h6>
+                            <p><span class="fw-bold">Emprunté le: </span> {{empruntObject.date_emprunt}}</p>
+                            <p><span class="fw-bold">A rendre le: </span> {{empruntObject.date_retour_prevue}}</p>
+                            <p><span class="fw-bold">Rendu le: </span>
+                                @if (empruntObject.date_retour_reelle) {
+                                    {{empruntObject.date_retour_reelle}}
+                                }@else {
+                                    Pas encore
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal Modifier Emprunt -->
+<div class="modal fade" id="modifierEmprunt" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Enregistrer la date de retour</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"> 
+            @if (empruntObject) {
+                <p class="mb-3"><span class="fw-bold">Livre: </span> {{empruntObject.livre.titre}}</p>
+                <p  class="mb-3"><span class="fw-bold">Emprunté le: </span> {{empruntObject.date_emprunt}} par {{empruntObject.user.prenom}} {{empruntObject.user.nom}} </p>
+            }
+            <form action="" enctype="multipart/form-data">
+                <!-- Numero isbn  -->
+                <div class="mb-3">
+                    <label for="dateR" class="form-label">Retouné le</label>
+                    <input type="date" class="form-control" id="dateR" name="dateR" [(ngModel)]="dateRetour">
+                </div>
+                  
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-primary" (click)="updatemprunt()">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+</div>
